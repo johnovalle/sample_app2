@@ -26,6 +26,7 @@ describe User do
     end
     
     it { should be_admin }
+    
   end
   
   
@@ -72,8 +73,6 @@ describe User do
     end
     it { should_not be_valid }
   end
-  
-  
   
   describe "when password is not present" do
     before do
