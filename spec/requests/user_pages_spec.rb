@@ -49,7 +49,14 @@ describe "User Pages" do
         
         it { should_not have_link('delete', href: user_path(admin)) }
 
-        
+        describe "exercise from chapter 9 that sucks" do
+          before { sign_in admin, no_capybara: true }
+          it "admin should not be able to delete self" do
+            expect do
+              delete user_path(admin)
+            end.to_not change(User, :count).by(-1)
+          end
+        end
       end
     end
     
