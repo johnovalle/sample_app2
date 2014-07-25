@@ -54,6 +54,11 @@ describe "Authentication" do
           before { visit users_path }
           it { should have_title('Sign in') }
         end
+        
+        it { should_not have_link('Profile',      href: user_path(user)) }
+        it { should_not have_link('Settings', href: edit_user_path(user)) }
+        
+        
       end
       
       describe "submitting to the update action" do
@@ -67,12 +72,27 @@ describe "Authentication" do
           fill_in "Email",    with: user.email
           fill_in "Password", with: user.password
           click_button "Sign in"
+          
         end
         
         describe "after signing in" do
+          
           it "should render the desired protected page" do
             expect(page).to have_title('Edit user')
           end
+          
+          describe "when signing in again" do
+            before do
+              click_link "Sign out"
+              sign_in user
+            end
+            
+            it "should render the default (profile) page" do
+              expect(page).to have_title(user.name)
+            end
+                       
+          end
+          
         end
       end
       
