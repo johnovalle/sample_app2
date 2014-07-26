@@ -49,6 +49,8 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
   
+  
+  
   private
     def user_params
       params.require(:user).permit(:name, :email, :password,
@@ -57,12 +59,7 @@ class UsersController < ApplicationController
     
     #Before filters
     
-    def signed_in_user
-      unless signed_in?
-        store_location
-        redirect_to signin_url, notice: "Please sign in." 
-      end
-    end
+    
     
     def already_signed_in
       redirect_to(root_url) if signed_in?
